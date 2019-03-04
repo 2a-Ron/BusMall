@@ -1,24 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bus Mall</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <h1>List of Images Side By Side</h1>
-    <ul class="image-list">
-        <li><img id="pic1" src=""></li>
-        <li><img id="pic2" src=""></li>
-        <li><img id="pic3" src=""></li>
-    </ul>
-    <button id="test-button" type="submit">TEST CLICK</button>
-    <h2>Calculations</h2>
-    <ul class="calculations">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Bus Mall</title>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        
+        <header>
+        <h1>Image Gallery</h1>
+        </header>
+        <!-- these tables are to remain static until app.js is ready to build the tables dynamiclly -->
+        <table id="gallery-shell">
+            <td><img id="pic1" src="img/bag.jpg"></td>
+            <td><img id="pic2" src="img/banana.jpg"></td>
+            <td><img id="pic3" src="img/bathroom.jpg"></td>
+        </table>
+        
+        <button id="test-button" type="submit">&circlearrowright; RECYCLE GALLERY</button>
 
-    </ul>
-</body>
+        <table id="stat-sheet-shell">
+            <tr>
+                <th class="grid-title"></td>
+                <th class="grid-title">GALLERY STATISTICS</td>
+                <th class="grid-title"></td>
+            </tr>
+            <tr>
+                <th class="row-header">Image Name:</td>
+                <th class="row-header">Total Clicks Recieved:</td>
+                <th class="row-header">Perentage Clicked:</td>
+            </tr>
+            <tr>
+                <td class="row-alt-color">something.jpg</td>
+                <td class="row-alt-color">4</td>
+                <td class="row-alt-color">35%</td>
+            </tr>
+            <tr>
+                <td class="row-alt-color">somethingElse.jpg</td>
+                <td class="row-alt-color">1</td>
+                <td class="row-alt-color">10%</td>
+            </tr>
+        </table>
+    </body>
 </html>
