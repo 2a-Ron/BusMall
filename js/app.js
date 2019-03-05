@@ -1,42 +1,42 @@
 'use strict';
+
 var slotOne = document.getElementById('pic1');
 var slotTwo = document.getElementById('pic2');
 var slotThree = document.getElementById('pic3');
 var allImages = [];
-var turnCounter = 0;
-var clickCounter = 0;
+var turnCounter = 25;
+
 //constructor
-function ImageGallery (name, ext) {
+function ImageGallery (name, ext, title) {
+  this.title = title;
   this.name = name;
   this.ext = ext;
   this.filepath = `img/${name}.${ext}`;
   this.views = 0;
   this.clicks = 0;
-  this.viewPercentage = 0;
-  this.clickPercentage = 0;
   allImages.push(this);
 }
 
-new ImageGallery('bag', 'jpg');
-new ImageGallery('banana', 'jpg');
-new ImageGallery('bathroom', 'jpg');
-new ImageGallery('boots', 'jpg');
-new ImageGallery('breakfast', 'jpg');
-new ImageGallery('bubblegum', 'jpg');
-new ImageGallery('chair', 'jpg');
-new ImageGallery('cthulhu', 'jpg');
-new ImageGallery('dog-duck', 'jpg');
-new ImageGallery('dragon', 'jpg');
-new ImageGallery('pen', 'jpg');
-new ImageGallery('pet-sweep', 'jpg');
-new ImageGallery('scissors', 'jpg');
-new ImageGallery('shark', 'jpg');
-new ImageGallery('sweep', 'png');
-new ImageGallery('tauntaun', 'jpg');
-new ImageGallery('unicorn', 'jpg');
-new ImageGallery('usb', 'gif');
-new ImageGallery('water-can', 'jpg');
-new ImageGallery('wine-glass', 'jpg');
+new ImageGallery('bag', 'jpg', 'IMG-bag');
+new ImageGallery('banana', 'jpg', 'IMG-banana');
+new ImageGallery('bathroom', 'jpg', 'IMG-bathroom');
+new ImageGallery('boots', 'jpg', 'IMG-boots');
+new ImageGallery('breakfast', 'jpg', 'IMG-breakfast');
+new ImageGallery('bubblegum', 'jpg', 'IMG-bubblegum');
+new ImageGallery('chair', 'jpg', 'IMG-chair');
+new ImageGallery('cthulhu', 'jpg', 'IMG-cthulhu');
+new ImageGallery('dog-duck', 'jpg', 'IMG-dog-duck');
+new ImageGallery('dragon', 'jpg', 'IMG-dragon');
+new ImageGallery('pen', 'jpg', 'IMG-pen');
+new ImageGallery('pet-sweep', 'jpg', 'IMG-pet-sweep');
+new ImageGallery('scissors', 'jpg', 'IMG-scissors');
+new ImageGallery('shark', 'jpg', 'IMG-shark');
+new ImageGallery('sweep', 'png', 'IMG-sweep');
+new ImageGallery('tauntaun', 'jpg', 'IMG-tauntaun');
+new ImageGallery('unicorn', 'jpg', 'IMG-unicorn');
+new ImageGallery('usb', 'gif', 'IMG-usb');
+new ImageGallery('water-can', 'jpg', 'IMG-water-can');
+new ImageGallery('wine-glass', 'jpg', 'IMG-wine-glass');
 
 function generateGallery() {
   var random1 = Math.floor(Math.random() * allImages.length);
@@ -47,9 +47,9 @@ function generateGallery() {
   slotTwo.src = allImages[random2].filepath;
   slotThree.src = allImages[random3].filepath;
 
-  slotOne.name = allImages[random1].name;
-  slotTwo.name = allImages[random2].name;
-  slotThree.name = allImages[random3].name;
+  slotOne.title = allImages[random1].title;
+  slotTwo.title = allImages[random2].title;
+  slotThree.title = allImages[random3].title;
 
   allImages[random1].views++;
   allImages[random2].views++;
@@ -67,9 +67,9 @@ generateGallery();
 
 function clickCount () {
   for (var i = 0; i < allImages.length; i++) {
-    if (event.target.name === allImages[i].name) {
-      clickCounter++;
-      console.log('Clicks: ', clickCounter);
+    if (event.target.title === allImages[i].title) {
+      allImages[i].clicks++;
+      console.log('Click Counter For - ', allImages[i].title, ': ', allImages[i].clicks, ' clicks.');
     }
   }
 }
@@ -78,10 +78,14 @@ slotOne.addEventListener('click', handleClick);
 slotTwo.addEventListener('click', handleClick);
 slotThree.addEventListener('click', handleClick);
 function handleClick(event) {
-  console.log('title: ', event.target.name);
-  turnCounter++;
-  generateGallery();
-  console.log('Turn Count: ', turnCounter);
+  turnCounter--;
   clickCount();
+  generateGallery();
+  if (turnCounter === 0) {
+    alert('Survey Complete.  We thank you for your participation.');
+    alert('Continue and view the results.');
+  }
+  console.log('Turn Count: ', turnCounter);
+  /*console.log('IMG TITLE: ', event.target.title); // AT THIS TIME EVENT IS DEFINED BUT NEVER USED.  FIND A WAY TO USE IT*/
 }
 
