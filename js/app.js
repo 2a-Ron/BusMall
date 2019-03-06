@@ -64,22 +64,27 @@ function generateGallery() {
   */
 }
 generateGallery();
-
-function clickCounter () {
+// before going crazy making the new changes, try and get this working with a percentage calculation.  I like the live update i.e. function call above the generate image instead of below the end game alerts.  consider the percent to be similar to the click counter.  the percentage needs the info from views and clicks to run the math.
+function clickCounter () {//this could actually become my generateStats function
   for (var i = 0; i < allImages.length; i++) {
     if (event.target.title === allImages[i].title) {
       allImages[i].clicks++;
       console.log('Click Counter For - ', allImages[i].title, ': ', allImages[i].clicks, ' clicks.');
+      // the below works but instead of having it in this function, replace it with a function call and write this function elsewhere.
+      var bagDataViews = document.getElementById('views-for-bag');
+      var bagDataClicks = document.getElementById('clicks-for-bag');
+      bagDataViews.textContent = allImages[0].views; // allImages.views???
+      bagDataClicks.textContent = allImages[0].clicks; // allImages.clicks???
     }
   }
 }
 
 /* I only want to make one appendage to the DOM only after the turnCounter runs out */
 function generateStatistics() {
-  var bagDataViews = document.getElementById('views-for-bag');
+  /*var bagDataViews = document.getElementById('views-for-bag');
   var bagDataClicks = document.getElementById('clicks-for-bag');
-  bagDataViews.textContent = 'How do I get'; // allImages.views???
-  bagDataClicks.textContent = 'This to work?'; // allImages.clicks???
+  bagDataViews.textContent = 'How do I'; // allImages.views???
+  bagDataClicks.textContent = 'Make this work?'; // allImages.clicks???*/
 
   var bananaDataViews = document.getElementById('views-for-banana');
   var bananaDataClicks = document.getElementById('clicks-for-banana');
