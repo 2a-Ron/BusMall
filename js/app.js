@@ -16,7 +16,7 @@ function ImageGallery (name, ext, title) {
   this.clicks = 0;
   allImages.push(this);
 }
-
+/* what if I create variables for all the constructors because they don't need to be dynamic.  I may be able to run a function at the end that uses bag.views and bag.clicks for each instance and use that info to place on the DOM */
 new ImageGallery('bag', 'jpg', 'IMG-bag');
 new ImageGallery('banana', 'jpg', 'IMG-banana');
 new ImageGallery('bathroom', 'jpg', 'IMG-bathroom');
@@ -64,23 +64,43 @@ function generateGallery() {
   */
 }
 generateGallery();
-
-function clickCounter () {
+// before going crazy making the new changes, try and get this working with a percentage calculation.  I like the live update i.e. function call above the generate image instead of below the end game alerts.  consider the percent to be similar to the click counter.  the percentage needs the info from views and clicks to run the math.
+function clickCounter () {//this could actually become my generateStats function
   for (var i = 0; i < allImages.length; i++) {
     if (event.target.title === allImages[i].title) {
       allImages[i].clicks++;
       console.log('Click Counter For - ', allImages[i].title, ': ', allImages[i].clicks, ' clicks.');
+      // the below works but instead of having it in this function, replace it with a function call and write this function elsewhere.
+      var bagDataViews = document.getElementById('views-for-bag');
+      var bagDataClicks = document.getElementById('clicks-for-bag');
+      bagDataViews.textContent = allImages[0].views; // allImages.views???
+      bagDataClicks.textContent = allImages[0].clicks; // allImages.clicks???
     }
   }
 }
 
-/*
+/* I only want to make one appendage to the DOM only after the turnCounter runs out */
 function generateStatistics() {
-  should i create a function that runs with every event that places the available stats into the DOM? Views are in allImages[i].views but clicks are handled in the clickCounter function.  I may need to add dom id's to my constructor
-    }
-  }
+  /*var bagDataViews = document.getElementById('views-for-bag');
+  var bagDataClicks = document.getElementById('clicks-for-bag');
+  bagDataViews.textContent = 'How do I'; // allImages.views???
+  bagDataClicks.textContent = 'Make this work?'; // allImages.clicks???*/
+
+  var bananaDataViews = document.getElementById('views-for-banana');
+  var bananaDataClicks = document.getElementById('clicks-for-banana');
+  bananaDataViews.textContent = 'Hopefully I';
+  bananaDataClicks.textContent = 'Get it soon..';
+
+  var bathroomDataViews = document.getElementById('views-for-bathroom');
+  var bathroomDataClicks = document.getElementById('clicks-for-bathroom');
+  bathroomDataViews.textContent = 'Fuckin Strings'; // allImages.views???
+  bathroomDataClicks.textContent = 'I need a variable!'; // allImages.clicks???
+
+  var bootsDataViews = document.getElementById('views-for-boots');
+  var bootsDataClicks = document.getElementById('clicks-for-boots');
+  bootsDataViews.textContent = 'I need this to be';
+  bootsDataClicks.textContent = 'allImages.clicks';
 }
-*/
 
 slotOne.addEventListener('click', handleClick);
 slotTwo.addEventListener('click', handleClick);
@@ -92,6 +112,7 @@ function handleClick(event) { // everytime I click I want to render the views an
   if (turnCounter === 0) {
     alert('Survey Complete.  We thank you for your participation.');
     alert('Continue and view the results.');
+    generateStatistics();
   }
   console.log('Turn Count: ', turnCounter);
   /*console.log('IMG TITLE: ', event.target.title); // AT THIS TIME EVENT IS DEFINED BUT NEVER USED.  FIND A WAY TO USE IT*/
