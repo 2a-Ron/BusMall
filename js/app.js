@@ -65,7 +65,7 @@ function generateGallery() {
 }
 generateGallery();
 
-function clickCount () {
+function clickCounter () {
   for (var i = 0; i < allImages.length; i++) {
     if (event.target.title === allImages[i].title) {
       allImages[i].clicks++;
@@ -74,12 +74,22 @@ function clickCount () {
   }
 }
 
+/*
+function generateStatistics() {
+  for (var i = 0; i < allImages.length; i++) {
+    if (event.target.bagDataViews === allImages[i].views) {
+      createElement using bag data views??
+    }
+  }
+}
+*/
+
 slotOne.addEventListener('click', handleClick);
 slotTwo.addEventListener('click', handleClick);
 slotThree.addEventListener('click', handleClick);
-function handleClick(event) {
+function handleClick(event) { // everytime I click I want to render the views and clicks to the DOM using the html id. so i need to get all the elements by id that I want to manipulate so for example th id="views-for-bag" and stored into a special variable for javascript to do things with like var bagDataViews = document.getElementById('views-for-bag'); and a shit load more.  Once they are "gotten" I need to figure out how to access the already stored data and place it on the DOM
   turnCounter--;
-  clickCount();
+  clickCounter();
   generateGallery();
   if (turnCounter === 0) {
     alert('Survey Complete.  We thank you for your participation.');
@@ -88,4 +98,15 @@ function handleClick(event) {
   console.log('Turn Count: ', turnCounter);
   /*console.log('IMG TITLE: ', event.target.title); // AT THIS TIME EVENT IS DEFINED BUT NEVER USED.  FIND A WAY TO USE IT*/
 }
+/*
+var statSheetTable = document.getElementById('stat-sheet-shell');
+var arrayHeaderRow = ['Image Name:', 'Views:', 'Clicks:'];
+var arrayImagesColumn = ['Bag', 'Banana', 'Bathroom', 'Boots', 'Breakfast', 'Meatball Bubblegum', 'Chair', 'cthulhu', 'Dog with Duckface', 'Dragon Meat', 'Pen', 'Pet Sweeper', 'Scissors', 'Shark Sleeping Bag', 'Baby-Swiff', 'Tauntaun', 'Unicorn Meat', 'usb drive', 'Water Can', 'Wine Glass'];
+*/
+
+/* - arrayHeaderRow will iterate by one going across the row
+   - arrayImagesColumn will iterate going down the column
+   - for each row, arrayImagesColumn[0].views should be displayed under arrayHeaderRow[1]
+   and arrayImagesColumn[0].clicks should be displayed under arrayHeaderRow[2]*/
+
 
