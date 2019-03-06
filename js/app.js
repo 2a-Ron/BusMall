@@ -76,9 +76,7 @@ function clickCounter () {
 
 /*
 function generateStatistics() {
-  for (var i = 0; i < allImages.length; i++) {
-    if (event.target.bagDataViews === allImages[i].views) {
-      createElement using bag data views??
+  should i create a function that runs with every event that places the available stats into the DOM? Views are in allImages[i].views but clicks are handled in the clickCounter function.  I may need to add dom id's to my constructor
     }
   }
 }
