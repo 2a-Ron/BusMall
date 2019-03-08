@@ -216,6 +216,42 @@ function renderStatistics () {
     }
   }
 }
+// CHART NOTES: Clicks and Views are stored in each object so i can cycle through allImages[i].clicks and .views to access those stats.  Percentage is trapped.  The hole I dug is going to make me re-write arithmatic for percentages unless I can figure out how to extract my data from my constructors and push them into an empty array and use that to output to my graph.  I need to extract all 3 categories of info into their own individual empty array
+
+// draw chart
+var ctx = document.getElementById('bus-mall-chart').getContext('2d');
+var chart = new Chart(ctx, {
+  // The type of chart we want to create
+  type: 'bar',
+
+  // The data for our dataset
+  data: {
+    labels: ['Bag', 'Banana', 'Bathroom iPod Stand', 'Boots', 'Breakfast', 'Meatball Bubblegum', 'Chair', 'Cthulhu', 'Dog with Duckface', 'Dragon Meat', 'Pen', 'Pet Sweeper', 'Scissors', 'Shark Sleeping Bag', 'Baby Swiffer', 'Tauntaun', 'Unicorn Meat', 'USB Drive', 'Water Can', 'Wine Glass'],
+    datasets: [
+      {
+        label: 'Views',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [17, 10, 5, 2, 20, 30, 45], // these will be clicks views and percentage
+      },
+      {
+        label: 'Votes',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [7, 10, 5, 2, 20, 30, 45], // these will be clicks views and percentage
+      },
+      {
+        label: 'Vote Percentage',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [41, 10, 5, 2, 20, 30, 45], // these will be clicks views and percentage
+      },
+
+    ]
+  },
+  // Configuration options go here
+  options: {}
+});
 
 slotOne.addEventListener('click', handleClick);
 slotTwo.addEventListener('click', handleClick);
