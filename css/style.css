@@ -112,6 +112,14 @@ button:hover {
     text-align: center;
 }
 
+canvas {
+    width: 400px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .row-button {
     background-color: #555;
     border-style: solid;
