@@ -44,11 +44,10 @@ function generateGallery() {
   // run checks for duplicates
   var random1 = Math.floor(Math.random() * allImages.length);
   var random2 = Math.floor(Math.random() * allImages.length);
-  if (random2 === random1 || random3) {
-    random2 = Math.floor(Math.random() * allImages.length);
-  }
   var random3 = Math.floor(Math.random() * allImages.length);
-  if (random3 === random1 || random2) {
+  if ((random2 === random1) || (random2 === random3)){
+    random2 = Math.floor(Math.random() * allImages.length);
+  } else if ((random3 === random2) || (random3 === random1)) {
     random3 = Math.floor(Math.random() * allImages.length);
   }
 
