@@ -21,6 +21,13 @@ h1 {
     text-align: center;
 }
 
+.instructions {
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 900px;
+}
+
 #gallery-shell, td {
     background-color: #777;
     border-style: solid;

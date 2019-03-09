@@ -1,8 +1,9 @@
 'use strict';
-
+// 3 images side by side
 var slotOne = document.getElementById('pic1');
 var slotTwo = document.getElementById('pic2');
 var slotThree = document.getElementById('pic3');
+//image object array
 var allImages = [];
 var turnCounter = 25;
 
@@ -38,6 +39,7 @@ new ImageGallery('usb', 'gif', 'IMG-usb');
 new ImageGallery('water-can', 'jpg', 'IMG-water-can');
 new ImageGallery('wine-glass', 'jpg', 'IMG-wine-glass');
 
+// generate 3 side by side images at random
 function generateGallery() {
   // run checks for duplicates
   var random1 = Math.floor(Math.random() * allImages.length);
@@ -69,11 +71,15 @@ function generateGallery() {
 }
 generateGallery();
 
+// table is already made...grab id's and place the image data on the DOM
 function renderStatistics () {
   for (var i = 0; i < allImages.length; i++) {
+    // click counter
     if (event.target.title === allImages[i].title) {
       allImages[i].clicks++;
       //console.log('Click Counter For - ', allImages[i].title, ': ', allImages[i].clicks, ' clicks.');
+
+      // get image stats
       var bagDataViews = document.getElementById('views-for-bag');
       var bagDataClicks = document.getElementById('clicks-for-bag');
       var bagDataPercentage = document.getElementById('percent-for-bag');
@@ -216,42 +222,54 @@ function renderStatistics () {
     }
   }
 }
-// CHART NOTES: Clicks and Views are stored in each object so i can cycle through allImages[i].clicks and .views to access those stats.  Percentage is trapped.  The hole I dug is going to make me re-write arithmatic for percentages unless I can figure out how to extract my data from my constructors and push them into an empty array and use that to output to my graph.  I need to extract all 3 categories of info into their own individual empty array
 
 // draw chart
 var ctx = document.getElementById('bus-mall-chart').getContext('2d');
 var chart = new Chart(ctx, {
-  // The type of chart we want to create
+  // The type of chart
   type: 'bar',
 
-  // The data for our dataset
+  // The data for the dataset
   data: {
     labels: ['Bag', 'Banana', 'Bathroom iPod Stand', 'Boots', 'Breakfast', 'Meatball Bubblegum', 'Chair', 'Cthulhu', 'Dog with Duckface', 'Dragon Meat', 'Pen', 'Pet Sweeper', 'Scissors', 'Shark Sleeping Bag', 'Baby Swiffer', 'Tauntaun', 'Unicorn Meat', 'USB Drive', 'Water Can', 'Wine Glass'],
     datasets: [
       {
         label: 'Views',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [17, 10, 5, 2, 20, 30, 45], // these will be clicks views and percentage
+        backgroundColor: 'rgb(139, 64, 168)',
+        borderColor: 'rgb(0, 0, 0)',
+        data: [], // <---route = chart.data.datasets[0].data.push(allImages[i].views);
       },
       {
         label: 'Votes',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [7, 10, 5, 2, 20, 30, 45], // these will be clicks views and percentage
+        backgroundColor: 'rgb(255, 255, 255)',
+        borderColor: 'rgb(0, 0, 0)',
+        data: [], // <---route = chart.data.datasets[1].data.push(allImages[i].clicks);
       },
       {
         label: 'Vote Percentage',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [41, 10, 5, 2, 20, 30, 45], // these will be clicks views and percentage
+        backgroundColor: 'rgb(102, 0, 102)',
+        borderColor: 'rgb(0, 0, 0)',
+        data: [], // <---route = chart.data.datasets[2].data.push(Math.floor(allImages[i].clicks / allImages[i].views * 100));
       },
 
     ]
   },
   // Configuration options go here
   options: {}
+
 });
+
+function renderStatsToChart() {
+  for (var i = 0; i < allImages.length; i++) {
+    chart.data.datasets[0].data.push(allImages[i].views);
+    chart.data.datasets[1].data.push(allImages[i].clicks);
+    chart.data.datasets[2].data.push(Math.floor(allImages[i].clicks / allImages[i].views * 100));
+  }
+}
+
+console.log('Views? : ', chart.data.datasets[0].data);
+console.log('Votes? : ', chart.data.datasets[1].data);
+console.log('Percentage Voted? : ', chart.data.datasets[2].data);
 
 slotOne.addEventListener('click', handleClick);
 slotTwo.addEventListener('click', handleClick);
@@ -263,6 +281,8 @@ function handleClick(event) {
   if (turnCounter === 0) {
     alert('Survey Complete.  We thank you for your participation.');
     alert('Continue and view the results.');
+    renderStatsToChart();
+    chart.update();
     slotOne.removeEventListener('click', handleClick);
     slotTwo.removeEventListener('click', handleClick);
     slotThree.removeEventListener('click', handleClick);
