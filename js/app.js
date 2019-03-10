@@ -1,4 +1,5 @@
 'use strict';
+
 // 3 images side by side
 var slotOne = document.getElementById('pic1');
 var slotTwo = document.getElementById('pic2');
@@ -69,6 +70,9 @@ function generateGallery() {
 */
 }
 generateGallery();
+
+// run check for local storage on page load/refresh
+//checkForLocalStorage();
 
 // table is already made...grab id's and place the image data on the DOM
 function renderStatistics () {
@@ -258,18 +262,37 @@ var chart = new Chart(ctx, {
 
 });
 
+function saveDataToLocalStorage() {
+  localStorage.setItem('surveyData', JSON.stringify(allImages));
+  checkForLocalStorage();
+}
+
+function getDataFromStorage() {
+  allImages = JSON.parse(localStorage.getItem('surveyData'));
+  renderStatsToChart();
+  chart.update();
+}
+
+function checkForLocalStorage() {
+  if (localStorage.length > 0) {
+    console.log('local storage found: ');
+    getDataFromStorage();
+  }
+}
+
 function renderStatsToChart() {
   for (var i = 0; i < allImages.length; i++) {
     chart.data.datasets[0].data.push(allImages[i].views);
     chart.data.datasets[1].data.push(allImages[i].clicks);
     chart.data.datasets[2].data.push(Math.floor(allImages[i].clicks / allImages[i].views * 100));
   }
+  chart.update();
 }
-
+/*
 console.log('Views? : ', chart.data.datasets[0].data);
 console.log('Votes? : ', chart.data.datasets[1].data);
 console.log('Percentage Voted? : ', chart.data.datasets[2].data);
-
+*/
 slotOne.addEventListener('click', handleClick);
 slotTwo.addEventListener('click', handleClick);
 slotThree.addEventListener('click', handleClick);
@@ -280,11 +303,13 @@ function handleClick(event) {
   if (turnCounter === 0) {
     alert('Survey Complete.  We thank you for your participation.');
     alert('Continue and view the results.');
+    checkForLocalStorage();
     renderStatsToChart();
     chart.update();
     slotOne.removeEventListener('click', handleClick);
     slotTwo.removeEventListener('click', handleClick);
     slotThree.removeEventListener('click', handleClick);
+    saveDataToLocalStorage();
   }
   //console.log('Turn Count: ', turnCounter);
 }
