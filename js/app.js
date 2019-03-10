@@ -71,9 +71,6 @@ function generateGallery() {
 }
 generateGallery();
 
-// run check for local storage on page load/refresh
-//checkForLocalStorage();
-
 // table is already made...grab id's and place the image data on the DOM
 function renderStatistics () {
   for (var i = 0; i < allImages.length; i++) {
